@@ -6,6 +6,9 @@
 
 :root {
 	font-family: 'Inter', sans-serif;
+	--background: #131212;
+	--text-color: #fff;
+	--link-color: #2563eb;
 }
 
 .input {
