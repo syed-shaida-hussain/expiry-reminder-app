@@ -62,7 +62,7 @@ const Homepage = () => {
 							Price
 						</div>
 						<div className="w-full md:w-2/12 font-semibold text-center">
-							Quantity
+							Qty
 						</div>
 						<div className="w-full md:w-3/12 font-semibold text-center">
 							Days till expiry
