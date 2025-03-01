@@ -1,5 +1,7 @@
+import Filters from './components/Filters';
 import Header from './components/Header';
 import { MdOutlineModeEdit } from 'react-icons/md';
+import Sidebar from './components/Sidebar';
 
 const dummyData = [
 	{
@@ -49,47 +51,49 @@ const calculateDaysToExpire = (expiryDate) => {
 const Homepage = () => {
 	return (
 		<div>
-			<Header />
-			<main className="p-6">
-				<h1 className="text-2xl font-bold mb-4 text-center">Product List</h1>
-				<div className="flex flex-col gap-5 sm:gap-3">
-					<div className="flex bg-gray-100 border-b p-1 sm:p-2">
-						{/* <div className="w-full md:w-1/12 font-semibold text-center">ID</div> */}
-						<div className="w-full md:w-3/12 font-semibold text-center">
-							Name
+			<Filters />
+			<main className="px-4">
+				<div className="overflow-x-auto">
+					<div className="min-w-full bg-white shadow-md rounded-lg overflow-hidden">
+						<div className="hidden sm:flex bg-gray-200 p-3 font-semibold">
+							<div className="flex-1 text-center">Name</div>
+							<div className="flex-1 text-center">Price</div>
+							<div className="flex-1 text-center">Quantity</div>
+							<div className="flex-1 text-center">Days Till Expiry</div>
+							<div className="flex-1 text-center">Action</div>
 						</div>
-						<div className="w-full md:w-2/12 font-semibold text-center">
-							Price
-						</div>
-						<div className="w-full md:w-2/12 font-semibold text-center">
-							Qty
-						</div>
-						<div className="w-full md:w-3/12 font-semibold text-center">
-							Days till expiry
-						</div>
+						{dummyData.map((item, index) => (
+							<div
+								key={index}
+								className="flex flex-col gap-4 sm:flex-row p-3 border-b last:border-b-0 items-center mb-8 sm:mb-0"
+							>
+								<div className="w-full sm:flex-1 sm:w-auto flex justify-between text-center sm:block">
+									<span className="sm:hidden font-semibold">Name: </span>
+									{item.name}
+								</div>
+								<div className="w-full sm:flex-1 sm:w-auto flex justify-between text-center sm:block">
+									<span className="sm:hidden font-semibold">Price: </span>
+									{item.price}
+								</div>
+								<div className="w-full sm:flex-1 sm:w-auto flex justify-between text-center sm:block">
+									<span className="sm:hidden font-semibold">Quantity: </span>
+									{item.quantity}
+								</div>
+								<div className="w-full sm:flex-1 sm:w-auto flex justify-between text-center sm:block">
+									<span className="sm:hidden font-semibold">
+										Days Till Expiry:{' '}
+									</span>
+									{calculateDaysToExpire(item.expiryDate)}
+								</div>
+								<div className="w-full sm:flex-1 sm:w-auto flex justify-between text-center sm:block">
+									<span className="sm:hidden font-semibold">Action: </span>
+									<button className="px-3 py-1 rounded">
+										<MdOutlineModeEdit />
+									</button>
+								</div>
+							</div>
+						))}
 					</div>
-
-					{dummyData.map((product) => (
-						<div
-							key={product.id}
-							className="flex items-start border-b p-1 sm:p-2 hover:bg-gray-50"
-						>
-							{/* <div className="w-full md:w-1/12 text-center">{product.id}</div> */}
-							<div className="w-full md:w-3/12 text-center">{product.name}</div>
-							<div className="w-full md:w-2/12 text-center">
-								₹{product.price}
-							</div>
-							<div className="w-full md:w-2/12 text-center">
-								{product.quantity}
-							</div>
-							<div className="w-full md:w-3/12 text-center">
-								{calculateDaysToExpire(product.expiryDate)}
-							</div>
-							<button className="mx-auto">
-								<MdOutlineModeEdit className="w-6 h-6" />
-							</button>
-						</div>
-					))}
 				</div>
 			</main>
 		</div>

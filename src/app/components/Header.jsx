@@ -1,25 +1,71 @@
+'use client';
+
+import Link from 'next/link';
+import { useState } from 'react';
+import { MdClose, MdDarkMode, MdLightMode, MdMenu } from 'react-icons/md';
+
 const Header = () => {
+	const [isMenuOpen, setIsMenuOpen] = useState(false);
+	const [isDark, setIsDark] = useState(false);
+	const toggleMenu = () => {
+		setIsMenuOpen((open) => !open);
+	};
+
+	const toggleTheme = () => {
+		setIsDark((dark) => !dark);
+	};
 	return (
-		<header className="flex justify-between sm:justify-center items-center flex-wrap gap-1 sm:gap-10 md:gap-20 lg:gap-40 p-2 sm:p-4 h-20 shadow-lg sticky top-0 mb-6">
-			<h1 className="font-semibold text-sm md:text-lg ">ExpireTrack</h1>
-			<input
-				type="text"
-				placeholder="Search..."
-				className="border border-background rounded-full outline-none px-2 py-2 sm:px-4 max-w-32 sm:max-w-fit"
-			/>
-			<div className="dropdown relative">
-				<button className="border border-background px-2 py-2 sm:px-4 rounded hover:bg-background hover:text-textColor">
-					Sort By
+		<header className="flex justify-between md:justify-around items-center flex-wrap px-10 h-20 bg-background text-textColor sticky top-0 mb-6">
+			<Link href="/" className="font-semibold text-lg ">
+				ExpireTrack
+			</Link>
+			<button className="inline md:hidden relative" onClick={toggleMenu}>
+				{isMenuOpen ? <MdClose size={30} /> : <MdMenu size={30} />}
+			</button>
+			<nav className="hidden gap-2 sm:gap-6 items-center md:flex">
+				<Link href="/" className="font-semibold text-lg ">
+					Expiring soon
+				</Link>
+				<Link href="/" className="font-semibold text-lg ">
+					Low stock
+				</Link>
+				<Link href="/" className="font-semibold text-lg ">
+					Out of stock
+				</Link>
+				<Link href="/" className="font-semibold text-lg ">
+					Expired items
+				</Link>
+				<button onClick={toggleTheme}>
+					{isDark ? (
+						<MdLightMode className="w-7 h-7" />
+					) : (
+						<MdDarkMode className="w-7 h-7" />
+					)}
 				</button>
-				<ul className="content shadow bg-background text-textColor sm:w-32">
-					<li className="p-2 hover:cursor-pointer hover:bg-gray-800 rounded hover:text-textColor">
-						Expiry low-to-high
-					</li>
-					<li className="p-2 hover:cursor-pointer hover:bg-gray-800 rounded hover:text-textColor">
-						Expiry high-to-low
-					</li>
-				</ul>
-			</div>
+			</nav>
+			{isMenuOpen && (
+				<nav className="min-h-screen flex flex-col items-center gap-20 px-10 py-5 min-w-full bg-background absolute top-20 right-0 md:hidden">
+					<Link href="/" className="font-semibold text-lg ">
+						Expiring soon
+					</Link>
+					<Link href="/" className="font-semibold text-lg ">
+						Low stock
+					</Link>
+					<Link href="/" className="font-semibold text-lg ">
+						Out of stock
+					</Link>
+					<Link href="/" className="font-semibold text-lg ">
+						Expired items
+					</Link>
+					<button onClick={toggleTheme}>
+						{isDark ? (
+							<MdLightMode className="w-7 h-7" />
+						) : (
+							<MdDarkMode className="w-7 h-7" />
+						)}
+					</button>
+				</nav>
+			)}
 		</header>
 	);
 };
