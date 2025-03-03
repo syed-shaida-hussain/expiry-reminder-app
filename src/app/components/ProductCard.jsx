@@ -9,7 +9,7 @@ const ProductCard = ({ product }) => {
 	};
 	return (
 		<div
-			className={`flex flex-col gap-4 sm:flex-row p-3 border-b-4 sm:border-b-2 last:border-b-0 products-center mb-8 sm:mb-0 ${calculateDaysToExpire(product.expiryDate) < 20 ? 'bg-red-400' : calculateDaysToExpire(product.expiryDate) < 40 ? 'bg-yellow-400' : 'bg-green-400'}`}
+			className={`flex flex-col gap-4 sm:flex-row p-3 border-b-4 sm:border-b-2 last:border-b-0 products-center mb-4 sm:mb-2 ${calculateDaysToExpire(product.expiryDate) < 20 ? 'bg-red-400' : calculateDaysToExpire(product.expiryDate) < 40 ? 'bg-yellow-400' : 'bg-green-400'}`}
 		>
 			<div className="w-full sm:flex-1 sm:w-auto flex justify-between text-center gap-4 sm:block">
 				<span className="sm:hidden font-semibold">Name: </span>
@@ -30,7 +30,7 @@ const ProductCard = ({ product }) => {
 			<div className="w-full sm:flex-1 sm:w-auto flex justify-between text-center gap-4 sm:block">
 				<span className="sm:hidden font-semibold">Edit: </span>
 				<button className="px-3 py-1 rounded">
-					<MdOutlineModeEdit />
+					<MdOutlineModeEdit size={20} />
 				</button>
 			</div>
 		</div>
