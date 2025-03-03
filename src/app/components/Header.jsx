@@ -31,9 +31,12 @@ const Header = () => {
 				<Link href="/expired" className="font-semibold text-lg ">
 					Expired items
 				</Link>
+				<Link href="/login" className="font-semibold text-lg ">
+					Login
+				</Link>
 			</nav>
 			{isMenuOpen && (
-				<nav className="min-h-screen flex flex-col items-center gap-20 px-10 py-5 min-w-full bg-background absolute top-20 right-0 md:hidden">
+				<nav className="min-h-screen flex flex-col items-center gap-10 px-10 py-5 min-w-full bg-background absolute top-20 right-0 md:hidden">
 					<Link
 						href="/expiring-soon"
 						className="font-semibold text-lg "
@@ -61,6 +64,9 @@ const Header = () => {
 						onClick={toggleMenu}
 					>
 						Expired items
+					</Link>
+					<Link href="/login" className="font-semibold text-lg ">
+						Login
 					</Link>
 				</nav>
 			)}

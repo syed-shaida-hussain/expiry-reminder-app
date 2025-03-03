@@ -1,14 +1,44 @@
 'use client';
 
 import Link from 'next/link';
+import { useState } from 'react';
+import axios from 'axios';
+import { useRouter } from 'next/navigation';
 
 const SignupPage = () => {
-	const handleSignupSubmit = (e) => {
+	const [user, setUser] = useState({ username: '', password: '' });
+	const [error, setError] = useState({ usernameError: '', passwordError: '' });
+	const { username, password } = user;
+	const { usernameError, passwordError } = error;
+	const router = useRouter();
+
+	const handleSignupSubmit = async (e) => {
 		e.preventDefault();
+		try {
+			const res = await axios.post('/api/user/signup', user);
+			if (res.status !== 201) {
+				setError({
+					...error,
+					usernameError: res?.data?.errors?.username,
+					passwordError: res?.data?.errors?.password,
+				});
+			}
+			if (res?.data?.status === 201) {
+				router.push('/login');
+			}
+		} catch (error) {
+			console.log(error);
+		}
+	};
+
+	const handleUserChange = (e) => {
+		const { name, value } = e.target;
+		setUser({ ...user, [name]: value });
 	};
 	return (
-		<div className="flex items-center justify-center h-screen w-full">
+		<div className="flex items-center justify-center h-[80vh] w-full">
 			<form
+				name="signup-form"
 				className="flex flex-col gap-8 sm:gap-4 w-[90%] sm:w-fit shadow-2xl px-16 py-10 rounded-lg"
 				onSubmit={handleSignupSubmit}
 			>
@@ -16,21 +46,29 @@ const SignupPage = () => {
 				<label htmlFor="username" className="flex flex-col gap-2 text-lg">
 					Username
 					<input
+						name="username"
 						type="text"
 						id="username"
 						placeholder="Username..."
 						className="input"
+						value={username}
+						onChange={(e) => handleUserChange(e)}
 					/>
 				</label>
+				<div className="text-red-500">{usernameError}</div>
 				<label htmlFor="password" className="flex flex-col gap-2 text-lg">
 					Password
 					<input
+						name="password"
 						type="password"
 						id="password"
 						placeholder="Password..."
 						className="input"
+						value={password}
+						onChange={handleUserChange}
 					/>
 				</label>
+				<div>{passwordError}</div>
 				<button
 					type="submit"
 					className="w-full bg-background text-textColor px-5 py-2 text-lg font-semibold"
