@@ -4,15 +4,15 @@ const userSchema = new mongoose.Schema(
 	{
 		username: {
 			type: String,
-			required: [true, 'Please provide a username'],
+			required: [true, 'Username required'],
 			unique: true,
 			lowercase: true,
-			minlength: [5, 'username should be greater than or equal to 5'],
+			minlength: [5, 'Username should be greater than 4'],
 		},
 		password: {
 			type: String,
-			required: [true, 'Please provide a password'],
-			minlength: [8, 'password should be greater than or equal to 8'],
+			required: [true, 'Password required'],
+			minlength: [8, 'password should be greater than 7'],
 		},
 	},
 	{

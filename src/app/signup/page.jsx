@@ -39,8 +39,9 @@ const SignupPage = () => {
 		<div className="flex items-center justify-center h-[80vh] w-full">
 			<form
 				name="signup-form"
-				className="flex flex-col gap-8 sm:gap-4 w-[90%] sm:w-fit shadow-2xl px-16 py-10 rounded-lg"
+				className="flex flex-col gap-6 sm:gap-4 w-[90%] sm:w-fit shadow-2xl px-16 py-10 rounded-lg"
 				onSubmit={handleSignupSubmit}
+				method="POST"
 			>
 				<h1 className="text-5xl text-center">Signup</h1>
 				<label htmlFor="username" className="flex flex-col gap-2 text-lg">
@@ -68,7 +69,7 @@ const SignupPage = () => {
 						onChange={handleUserChange}
 					/>
 				</label>
-				<div>{passwordError}</div>
+				<div className="text-red-500">{passwordError}</div>
 				<button
 					type="submit"
 					className="w-full bg-background text-textColor px-5 py-2 text-lg font-semibold"
