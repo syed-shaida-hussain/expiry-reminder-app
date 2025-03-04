@@ -1,10 +1,45 @@
 'use client';
 
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
+import { useState } from 'react';
+import axios from 'axios';
 
 const LoginPage = () => {
-	const handleLoginSubmit = (e) => {
+	const [user, setUser] = useState({ username: '', password: '' });
+	const [error, setError] = useState({ usernameError: '', passwordError: '' });
+	const { username, password } = user;
+	const { usernameError, passwordError } = error;
+	const router = useRouter();
+
+	const handleLoginSubmit = async (e) => {
 		e.preventDefault();
+		try {
+			const res = await axios.post('/api/user/login', user);
+			if (res.status !== 200) {
+				setError({
+					...error,
+					usernameError: res?.data?.errors?.username,
+					passwordError: res?.data?.errors?.password,
+				});
+			}
+			if (res?.data?.status === 200) {
+				// dispatch(loginUser());
+				router.push('/');
+			}
+		} catch (error) {
+			console.log(error);
+			setError({
+				...error,
+				usernameError: error?.response?.data?.errors?.username,
+				passwordError: error?.response?.data?.errors?.password,
+			});
+		}
+	};
+
+	const handleUserChange = (e) => {
+		const { name, value } = e.target;
+		setUser({ ...user, [name]: value });
 	};
 	return (
 		<div className="flex items-center justify-center h-[80vh] w-full">
@@ -12,6 +47,7 @@ const LoginPage = () => {
 				name="login-form"
 				className="flex flex-col gap-8 sm:gap-4 w-[90%] sm:w-fit shadow-2xl  px-16 py-10 rounded-lg"
 				onSubmit={handleLoginSubmit}
+				method="POST"
 			>
 				<h1 className="text-5xl text-center">Login</h1>
 				<label htmlFor="username" className="flex flex-col gap-2 text-lg">
@@ -21,8 +57,12 @@ const LoginPage = () => {
 						id="username"
 						placeholder="Username..."
 						className="input"
+						name="username"
+						value={username}
+						onChange={handleUserChange}
 					/>
 				</label>
+				<div className="text-red-500">{usernameError}</div>
 				<label htmlFor="password" className="flex flex-col gap-2 text-lg">
 					Password
 					<input
@@ -30,8 +70,12 @@ const LoginPage = () => {
 						id="password"
 						placeholder="Password..."
 						className="input"
+						name="password"
+						value={password}
+						onChange={handleUserChange}
 					/>
 				</label>
+				<div className="text-red-500">{passwordError}</div>
 				<button
 					type="submit"
 					className="w-full bg-background text-textColor px-5 py-2 text-lg font-semibold"

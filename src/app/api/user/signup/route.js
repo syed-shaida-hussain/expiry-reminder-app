@@ -16,7 +16,7 @@ export async function POST(request) {
 			throw Error('Password is required');
 		}
 		if (password.length < 8) {
-			throw Error('password should be greater than or equal to 8');
+			throw Error('password should be greater than 7');
 		}
 
 		const existingUser = await User.findOne({ username });

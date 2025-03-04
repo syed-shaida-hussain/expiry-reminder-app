@@ -9,8 +9,16 @@ export const handleErrors = (error) => {
 		errors.password = 'Password required';
 	}
 
-	if (error.message === 'password should be greater than or equal to 8') {
+	if (error.message === 'password should be greater than 7') {
 		errors.password = 'Password should be greater than 7';
+	}
+
+	if (error.message === 'incorrect username') {
+		errors.username = 'invalid username';
+	}
+
+	if (error.message === 'incorrect password') {
+		errors.password = 'invalid password';
 	}
 
 	if (error.message.includes('username already registered')) {
