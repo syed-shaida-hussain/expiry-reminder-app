@@ -35,6 +35,7 @@ const SignupPage = () => {
 		const { name, value } = e.target;
 		setUser({ ...user, [name]: value });
 	};
+
 	return (
 		<div className="flex items-center justify-center h-[80vh] w-full">
 			<form
