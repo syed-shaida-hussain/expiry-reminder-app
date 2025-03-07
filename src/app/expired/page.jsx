@@ -1,5 +1,5 @@
-import Filters from '../components/Filters';
-import ProductCard from '../components/ProductCard';
+import Filters from '../../components/Filters';
+import ProductCard from '../../components/ProductCard';
 import { dummyData } from '../constants/constants';
 
 const ExpiredItemsPage = () => {
