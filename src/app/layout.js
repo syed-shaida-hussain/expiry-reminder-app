@@ -1,3 +1,4 @@
+import { RootProvider } from '@/redux/rootProvider';
 import Header from '../components/Header';
 import './globals.css';
 
@@ -10,8 +11,10 @@ export default function RootLayout({ children }) {
 	return (
 		<html lang="en">
 			<body className={`antialiased`}>
-				<Header />
-				{children}
+				<RootProvider>
+					<Header />
+					{children}
+				</RootProvider>
 			</body>
 		</html>
 	);

@@ -38,7 +38,10 @@ export async function POST(request) {
 			{ status: 200 }
 		);
 		response.cookies.set('token', token);
-		setCookie('token', token);
+		setCookie('token', token, {
+			maxAge: 432000,
+			path: '/',
+		});
 		return response;
 	} catch (error) {
 		const errors = handleErrors(error);
