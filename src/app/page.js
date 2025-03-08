@@ -16,7 +16,6 @@ const Homepage = () => {
 							<div className="flex-1 text-center">Name</div>
 							<div className="flex-1 text-center">Price</div>
 							<div className="flex-1 text-center">Quantity</div>
-							<div className="flex-1 text-center">Days Till Expiry</div>
 							<div className="flex-1 text-center">Edit</div>
 						</div>
 						{dummyData.map((product) => (
