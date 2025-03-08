@@ -2,8 +2,6 @@ import { NextResponse } from 'next/server';
 
 export function middleware(req) {
 	const authToken = req.cookies.get('token')?.value || '';
-	console.log('authToken', authToken);
-
 	const protectedRoutes = [
 		'/',
 		'/expired',

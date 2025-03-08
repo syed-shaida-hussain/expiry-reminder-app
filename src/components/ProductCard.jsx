@@ -1,12 +1,7 @@
+import { calculateDaysToExpire } from '@/utils/calculateExpiry';
 import { MdOutlineModeEdit } from 'react-icons/md';
 
 const ProductCard = ({ product }) => {
-	const calculateDaysToExpire = (expiryDate) => {
-		const currentDate = new Date();
-		const timeDifference = new Date(expiryDate) - currentDate;
-		const daysLeftToExpire = Math.ceil(timeDifference / (1000 * 3600 * 24));
-		return daysLeftToExpire;
-	};
 	return (
 		<div className="bg-gray-100 shadow-md">
 			<div

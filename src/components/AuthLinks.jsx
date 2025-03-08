@@ -7,7 +7,6 @@ import { useDispatch, useSelector } from 'react-redux';
 
 const AuthLinks = () => {
 	const { isUserLoggedIn } = useSelector((store) => store.user);
-	console.log(isUserLoggedIn);
 	const dispatch = useDispatch();
 	const handleLogout = async () => {
 		const res = await axios.get('/api/user/logout');
