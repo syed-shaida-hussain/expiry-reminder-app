@@ -4,6 +4,8 @@ import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import axios from 'axios';
+import { useDispatch } from 'react-redux';
+import { loginUser } from '@/features/user/userSlice';
 
 const LoginPage = () => {
 	const [user, setUser] = useState({ username: '', password: '' });
@@ -11,6 +13,7 @@ const LoginPage = () => {
 	const { username, password } = user;
 	const { usernameError, passwordError } = error;
 	const router = useRouter();
+	const dispatch = useDispatch();
 
 	const handleLoginSubmit = async (e) => {
 		e.preventDefault();
@@ -24,7 +27,7 @@ const LoginPage = () => {
 				});
 			}
 			if (res?.data?.status === 200) {
-				// dispatch(loginUser());
+				dispatch(loginUser(res?.data?.user));
 				router.push('/');
 			}
 		} catch (error) {

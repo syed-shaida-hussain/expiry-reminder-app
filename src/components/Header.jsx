@@ -3,6 +3,11 @@
 import Link from 'next/link';
 import { useState } from 'react';
 import { MdClose, MdMenu } from 'react-icons/md';
+import dynamic from 'next/dynamic';
+
+const AuthLinks = dynamic(() => import('../components/AuthLinks'), {
+	ssr: false,
+});
 
 const Header = () => {
 	const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -31,9 +36,7 @@ const Header = () => {
 				<Link href="/expired" className="font-semibold text-lg ">
 					Expired items
 				</Link>
-				<Link href="/login" className="font-semibold text-lg ">
-					Login
-				</Link>
+				<AuthLinks />
 			</nav>
 			{isMenuOpen && (
 				<nav className="min-h-screen flex flex-col items-center gap-10 px-10 py-5 min-w-full bg-background absolute top-20 right-0 md:hidden">
@@ -65,9 +68,7 @@ const Header = () => {
 					>
 						Expired items
 					</Link>
-					<Link href="/login" className="font-semibold text-lg ">
-						Login
-					</Link>
+					<AuthLinks />
 				</nav>
 			)}
 		</header>

@@ -1,6 +1,6 @@
 import { RootProvider } from '@/redux/rootProvider';
-import Header from '../components/Header';
 import './globals.css';
+import Header from '@/components/Header';
 
 export const metadata = {
 	title: 'Expiry Reminder',
