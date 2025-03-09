@@ -4,7 +4,7 @@ export function middleware(req) {
 	const authToken = req.cookies.get('token')?.value || '';
 	const protectedRoutes = [
 		'/',
-		'/expired',
+		'/add-product',
 		'/expiring-soon',
 		'/low-stock',
 		'/out-of-stock',
@@ -24,7 +24,7 @@ export function middleware(req) {
 export const config = {
 	matcher: [
 		'/',
-		'/expired',
+		'/add-product',
 		'/expiring-soon',
 		'/low-stock',
 		'/out-of-stock',

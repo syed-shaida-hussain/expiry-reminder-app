@@ -16,7 +16,7 @@ const Header = () => {
 	};
 
 	return (
-		<header className="flex justify-between md:justify-around items-center flex-wrap px-10 h-20 bg-background text-textColor sticky top-0 mb-6">
+		<header className="flex justify-between md:justify-around items-center flex-wrap px-10 md:px-2 h-20 bg-background text-textColor sticky top-0 mb-6">
 			<Link href="/" className="font-semibold text-lg ">
 				ExpireTrack
 			</Link>
@@ -32,9 +32,6 @@ const Header = () => {
 				</Link>
 				<Link href="/out-of-stock" className="font-semibold text-lg ">
 					Out of stock
-				</Link>
-				<Link href="/expired" className="font-semibold text-lg ">
-					Expired items
 				</Link>
 				<AuthLinks />
 			</nav>
@@ -60,13 +57,6 @@ const Header = () => {
 						onClick={toggleMenu}
 					>
 						Out of stock
-					</Link>
-					<Link
-						href="/expired"
-						className="font-semibold text-lg "
-						onClick={toggleMenu}
-					>
-						Expired items
 					</Link>
 					<AuthLinks />
 				</nav>
