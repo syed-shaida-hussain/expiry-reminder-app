@@ -8,11 +8,12 @@ connect();
 
 export async function POST(request) {
 	try {
-		const data = await request.formData();
-		const name = data.get('name');
-		const price = data.get('price');
-		const quantity = data.get('quantity');
-		const expiryDate = data.get('expiry-date');
+		// const data = await request.formData();
+		const { name, price, quantity, expiryDate } = await request.json();
+		// const name = data.get('name');
+		// const price = data.get('price');
+		// const quantity = data.get('quantity');
+		// const expiryDate = data.get('expiry-date');
 
 		if (!name || !price || !quantity || !expiryDate) {
 			return NextResponse.json(
