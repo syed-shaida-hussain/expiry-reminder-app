@@ -37,10 +37,10 @@ const SignupPage = () => {
 	};
 
 	return (
-		<div className="flex items-center justify-center h-fit w-full p-4">
+		<div className="flex items-center justify-center h-[90vh] w-full p-4 my-8 ">
 			<form
 				name="signup-form"
-				className="flex flex-col gap-6 sm:gap-4 w-[100%] sm:w-fit shadow-2xl px-8 py-4 sm:px-16 sm:py-8 rounded-lg"
+				className="flex flex-col gap-6  w-[90%] h-fit sm:w-[80%] md:w-[70%] lg:w-[60%] xl:w-[50%] 2xl:w-fit shadow-2xl px-8 py-4 sm:px-16 sm:py-8 2xl:p-20 2xl:text-2xl  rounded-lg"
 				onSubmit={handleSignupSubmit}
 				method="POST"
 			>
