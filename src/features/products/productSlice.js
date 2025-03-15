@@ -3,7 +3,7 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 
 const initialState = {
-	status: 'idle',
+	loading: false,
 	products: [],
 	expiringSoonProducts: [],
 };
@@ -39,16 +39,16 @@ const productSlice = createSlice({
 	extraReducers: (builder) => {
 		builder
 			.addCase(fetchProducts.pending, (state) => {
-				state.status = 'loading';
+				state.loading = true;
 			})
 			.addCase(fetchProducts.fulfilled, (state, action) => {
-				(state.status = 'idle'), (state.products = action.payload.products);
+				(state.loading = false), (state.products = action.payload.products);
 			})
 			.addCase(fetchExpiringSoonProducts.pending, (state) => {
-				state.status = 'loading';
+				state.loading = true;
 			})
 			.addCase(fetchExpiringSoonProducts.fulfilled, (state, action) => {
-				(state.status = 'idle'),
+				(state.loading = false),
 					(state.expiringSoonProducts = action.payload.products);
 			});
 	},

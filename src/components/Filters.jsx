@@ -28,7 +28,7 @@ const Filters = ({ filterState, setFilterState }) => {
 					<li className="p-2 hover:cursor-pointer hover:bg-gray-800 rounded hover:text-textColor">
 						<label
 							htmlFor="LOW_EXPIRY_FIRST"
-							className="flex items-center gap-6"
+							className="flex items-center gap-6 hover:cursor-pointer"
 						>
 							<input
 								id="LOW_EXPIRY_FIRST"
@@ -41,6 +41,7 @@ const Filters = ({ filterState, setFilterState }) => {
 								onChange={(e) =>
 									setFilterState({ ...filterState, sortBy: 'LOW_EXPIRY_FIRST' })
 								}
+								className="hover:cursor-pointer"
 							/>
 							Low Expiry
 						</label>
@@ -48,7 +49,7 @@ const Filters = ({ filterState, setFilterState }) => {
 					<li className="p-2 hover:cursor-pointer hover:bg-gray-800 rounded hover:text-textColor">
 						<label
 							htmlFor="HIGH_EXPIRY_FIRST"
-							className="flex items-center gap-6"
+							className="flex items-center gap-6 hover:cursor-pointer"
 						>
 							<input
 								id="HIGH_EXPIRY_FIRST"
@@ -64,6 +65,7 @@ const Filters = ({ filterState, setFilterState }) => {
 										sortBy: 'HIGH_EXPIRY_FIRST',
 									})
 								}
+								className="hover:cursor-pointer"
 							/>
 							High Expiry
 						</label>
