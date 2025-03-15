@@ -20,7 +20,7 @@ const AuthLinks = () => {
 		}
 	};
 	return (
-		<div className="flex flex-col gap-10 items-center md:flex-row">
+		<div className="flex flex-col gap-10 items-center sm:flex-row">
 			{isUserLoggedIn && (
 				<Link href="/add-product" className="font-semibold text-lg ">
 					Add product

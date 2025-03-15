@@ -8,13 +8,7 @@ connect();
 
 export async function POST(request) {
 	try {
-		// const data = await request.formData();
 		const { name, price, quantity, expiryDate } = await request.json();
-		// const name = data.get('name');
-		// const price = data.get('price');
-		// const quantity = data.get('quantity');
-		// const expiryDate = data.get('expiry-date');
-
 		if (!name || !price || !quantity || !expiryDate) {
 			return NextResponse.json(
 				{
@@ -62,6 +56,33 @@ export async function POST(request) {
 		return NextResponse.json(
 			{
 				message: 'Error in adding product',
+				error,
+				success: false,
+				status: 500,
+			},
+			{ status: 500 }
+		);
+	}
+}
+
+export async function GET(request) {
+	try {
+		const userId = await getUserData(request);
+
+		const products = await Product.find({ userId: userId });
+		return NextResponse.json(
+			{
+				message: 'Products fetched successfully',
+				products,
+				success: true,
+				status: 200,
+			},
+			{ status: 200 }
+		);
+	} catch (error) {
+		return NextResponse.json(
+			{
+				message: 'Error in fetching product',
 				error,
 				success: false,
 				status: 500,

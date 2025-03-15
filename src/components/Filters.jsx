@@ -1,12 +1,14 @@
 import React from 'react';
 
-const Filters = () => {
+const Filters = ({ searchQuery, setSearchQuery }) => {
 	return (
 		<div className="flex justify-center items-center gap-4 mb-6 sm:gap-10">
 			<input
 				type="text"
 				placeholder="Search products..."
 				className="border border-background rounded-full outline-none px-4 py-3 w-2/4 sm:w-96"
+				value={searchQuery}
+				onChange={(e) => setSearchQuery(e.target.value)}
 			/>
 			<div className="dropdown relative">
 				<button className="border border-background px-2 py-2 sm:px-4 rounded hover:bg-background hover:text-textColor">

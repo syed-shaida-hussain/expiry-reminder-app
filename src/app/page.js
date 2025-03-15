@@ -1,11 +1,24 @@
+'use client';
+
+import { useEffect, useState } from 'react';
 import Filters from '../components/Filters';
 import ProductCard from '../components/ProductCard';
-import { dummyData } from './constants/constants';
+import { fetchProducts } from '@/features/products/productSlice';
+import { useDispatch, useSelector } from 'react-redux';
+import { getFilteredProducts } from '@/utils/getFilteredProducts';
 
 const Homepage = () => {
+	const [searchQuery, setSearchQuery] = useState('');
+	const { products } = useSelector((store) => store.product);
+	const dispatch = useDispatch();
+	const filteredProducts = getFilteredProducts(products, searchQuery);
+
+	useEffect(() => {
+		dispatch(fetchProducts());
+	}, [dispatch]);
 	return (
 		<div>
-			<Filters />
+			<Filters searchQuery={searchQuery} setSearchQuery={setSearchQuery} />
 			<h1 className="text-lg md:text-2xl lg:text-3xl my-8 text-center">
 				Product list
 			</h1>
@@ -18,9 +31,9 @@ const Homepage = () => {
 							<div className="flex-1 text-center">Quantity</div>
 							<div className="flex-1 text-center">Edit</div>
 						</div>
-						{dummyData.map((product) => (
+						{filteredProducts?.map((product) => (
 							<ProductCard
-								key={product.id}
+								key={product._id}
 								product={product}
 								isProductListingCard={true}
 							/>

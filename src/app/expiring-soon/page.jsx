@@ -1,11 +1,9 @@
-import Filters from '../../components/Filters';
 import ProductCard from '../../components/ProductCard';
 import { dummyData } from '../constants/constants';
 
 const ExpiringSoonPage = () => {
 	return (
 		<div>
-			<Filters />
 			<h1 className="text-lg md:text-2xl lg:text-3xl my-8 text-center">
 				Expiring soon items
 			</h1>
@@ -16,7 +14,6 @@ const ExpiringSoonPage = () => {
 							<div className="flex-1 text-center">Name</div>
 							<div className="flex-1 text-center">Price</div>
 							<div className="flex-1 text-center">Quantity</div>
-							<div className="flex-1 text-center">Days Till Expiry</div>
 							<div className="flex-1 text-center">Edit</div>
 						</div>
 						{dummyData.map((product) => (
