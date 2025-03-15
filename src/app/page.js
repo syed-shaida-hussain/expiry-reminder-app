@@ -6,19 +6,26 @@ import ProductCard from '../components/ProductCard';
 import { fetchProducts } from '@/features/products/productSlice';
 import { useDispatch, useSelector } from 'react-redux';
 import { getFilteredProducts } from '@/utils/getFilteredProducts';
+import { getSortedProducts } from '@/utils/getSortedProducts';
 
 const Homepage = () => {
-	const [searchQuery, setSearchQuery] = useState('');
+	const [filterState, setFilterState] = useState({
+		searchQuery: '',
+		sortBy: '',
+	});
+	const { searchQuery, sortBy } = filterState;
 	const { products } = useSelector((store) => store.product);
 	const dispatch = useDispatch();
-	const filteredProducts = getFilteredProducts(products, searchQuery);
+	const sortedProducts = getSortedProducts(products, sortBy);
+	console.log(sortedProducts);
+	const filteredProducts = getFilteredProducts(sortedProducts, searchQuery);
 
 	useEffect(() => {
 		dispatch(fetchProducts());
 	}, [dispatch]);
 	return (
 		<div>
-			<Filters searchQuery={searchQuery} setSearchQuery={setSearchQuery} />
+			<Filters filterState={filterState} setFilterState={setFilterState} />
 			<h1 className="text-lg md:text-2xl lg:text-3xl my-8 text-center">
 				Product list
 			</h1>
