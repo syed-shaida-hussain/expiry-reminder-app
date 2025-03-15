@@ -1,5 +1,5 @@
 export const getSortedProducts = (products, sortBy) => {
-	return products.slice().sort((a, b) => {
+	return products?.slice().sort((a, b) => {
 		const dateA = new Date(a.expiryDate);
 		const dateB = new Date(b.expiryDate);
 

@@ -17,7 +17,6 @@ const Homepage = () => {
 	const { products } = useSelector((store) => store.product);
 	const dispatch = useDispatch();
 	const sortedProducts = getSortedProducts(products, sortBy);
-	console.log(sortedProducts);
 	const filteredProducts = getFilteredProducts(sortedProducts, searchQuery);
 
 	useEffect(() => {

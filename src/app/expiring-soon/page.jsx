@@ -1,7 +1,17 @@
+'use client';
+
+import { useDispatch, useSelector } from 'react-redux';
 import ProductCard from '../../components/ProductCard';
-import { dummyData } from '../constants/constants';
+import { useEffect } from 'react';
+import { fetchExpiringSoonProducts } from '@/features/products/productSlice';
 
 const ExpiringSoonPage = () => {
+	const { expiringSoonProducts } = useSelector((store) => store.product);
+	const dispatch = useDispatch();
+
+	useEffect(() => {
+		dispatch(fetchExpiringSoonProducts());
+	}, [dispatch]);
 	return (
 		<div>
 			<h1 className="text-lg md:text-2xl lg:text-3xl my-8 text-center">
@@ -16,8 +26,8 @@ const ExpiringSoonPage = () => {
 							<div className="flex-1 text-center">Quantity</div>
 							<div className="flex-1 text-center">Edit</div>
 						</div>
-						{dummyData.map((product) => (
-							<ProductCard key={product.id} product={product} />
+						{expiringSoonProducts?.map((product) => (
+							<ProductCard key={product._id} product={product} />
 						))}
 					</div>
 				</div>

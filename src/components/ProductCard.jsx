@@ -5,7 +5,7 @@ const ProductCard = ({ product }) => {
 	return (
 		<div className="bg-gray-100 shadow-md">
 			<div
-				className={`text-lg font-semibold text-center pt-4 px-2 mb-2 ${calculateDaysToExpire(product.expiryDate) < 20 ? 'text-red-400' : calculateDaysToExpire(product.expiryDate) < 40 ? 'text-yellow-400' : 'text-green-400'}`}
+				className={`text-lg font-semibold text-center pt-4 px-2 mb-2 ${calculateDaysToExpire(product.expiryDate) < 20 ? 'text-red-400' : calculateDaysToExpire(product.expiryDate) < 40 ? 'text-yellow-500' : 'text-green-400'}`}
 			>
 				{calculateDaysToExpire(product.expiryDate) > 0
 					? `Expiring in ${calculateDaysToExpire(product.expiryDate)} days`
