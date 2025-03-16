@@ -4,6 +4,7 @@ import Link from 'next/link';
 import { useState } from 'react';
 import axios from 'axios';
 import { useRouter } from 'next/navigation';
+import toast from 'react-hot-toast';
 
 const SignupPage = () => {
 	const [user, setUser] = useState({ username: '', password: '' });
@@ -25,6 +26,7 @@ const SignupPage = () => {
 			}
 			if (res?.data?.status === 201) {
 				router.push('/login');
+				toast('Signup successfull');
 			}
 		} catch (error) {
 			console.log(error);

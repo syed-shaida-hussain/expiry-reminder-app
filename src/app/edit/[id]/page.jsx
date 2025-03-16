@@ -7,6 +7,7 @@ import {
 import axios from 'axios';
 import { useRouter } from 'next/navigation';
 import { use, useEffect, useState } from 'react';
+import toast from 'react-hot-toast';
 import { useDispatch, useSelector } from 'react-redux';
 
 const ProductEditPage = ({ params }) => {
@@ -36,6 +37,7 @@ const ProductEditPage = ({ params }) => {
 
 			if (res?.status === 200) {
 				setError('');
+				toast('Post Edited successfully');
 				setProductToEdit(initialState);
 				router.push('/');
 				dispatch(

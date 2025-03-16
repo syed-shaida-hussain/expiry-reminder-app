@@ -2,6 +2,7 @@
 
 import axios from 'axios';
 import { useState } from 'react';
+import toast from 'react-hot-toast';
 
 const AddProductPage = () => {
 	const initialState = {
@@ -19,6 +20,7 @@ const AddProductPage = () => {
 			const res = await axios.post('/api/products', newProduct);
 
 			if (res?.status === 201) {
+				toast('Product added successfully');
 				setError('');
 				setNewProduct(initialState);
 			}

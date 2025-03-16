@@ -1,6 +1,7 @@
 import { RootProvider } from '@/redux/rootProvider';
 import './globals.css';
 import Header from '@/components/Header';
+import { Toaster } from 'react-hot-toast';
 
 export const metadata = {
 	title: 'Expiry Reminder',
@@ -14,6 +15,7 @@ export default function RootLayout({ children }) {
 				<RootProvider>
 					<Header />
 					{children}
+					<Toaster />
 				</RootProvider>
 			</body>
 		</html>

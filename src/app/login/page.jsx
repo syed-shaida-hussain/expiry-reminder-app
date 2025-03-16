@@ -6,6 +6,7 @@ import { useState } from 'react';
 import axios from 'axios';
 import { useDispatch } from 'react-redux';
 import { loginUser } from '@/features/user/userSlice';
+import toast from 'react-hot-toast';
 
 const LoginPage = () => {
 	const [user, setUser] = useState({ username: '', password: '' });
@@ -27,6 +28,7 @@ const LoginPage = () => {
 				});
 			}
 			if (res?.data?.status === 200) {
+				toast('Login successfull');
 				dispatch(loginUser(res?.data?.user));
 				router.push('/');
 			}
