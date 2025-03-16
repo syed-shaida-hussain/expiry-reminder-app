@@ -2,19 +2,17 @@ import { NextResponse } from 'next/server';
 
 export function middleware(req) {
 	const authToken = req.cookies.get('token')?.value || '';
-	const protectedRoutes = [
-		'/',
-		'/add-product',
-		'/expiring-soon',
-		'/low-stock',
-		'/out-of-stock',
-	];
+	const pathname = req.nextUrl.pathname;
 
-	if (!authToken && protectedRoutes.includes(req.nextUrl.pathname)) {
+	const protectedRoutes = ['/', '/add-product', '/expiring-soon'];
+	const isProtected =
+		protectedRoutes.includes(pathname) || pathname.startsWith('/edit/');
+
+	if (!authToken && isProtected) {
 		return NextResponse.redirect(new URL('/login', req.url));
 	}
 
-	if (authToken && ['/login', '/signup'].includes(req.nextUrl.pathname)) {
+	if (authToken && ['/login', '/signup'].includes(pathname)) {
 		return NextResponse.redirect(new URL('/', req.url));
 	}
 
@@ -26,8 +24,7 @@ export const config = {
 		'/',
 		'/add-product',
 		'/expiring-soon',
-		'/low-stock',
-		'/out-of-stock',
+		'/edit/:path*',
 		'/login',
 		'/signup',
 	],

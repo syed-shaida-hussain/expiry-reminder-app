@@ -6,7 +6,7 @@ connect();
 
 export async function GET(request, { params }) {
 	try {
-		const { id } = params;
+		const { id } = await params;
 		const product = await Product.findById({ _id: id });
 		if (!product) {
 			return NextResponse.json(

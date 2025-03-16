@@ -1,7 +1,11 @@
 'use client';
 
-import { fetchSingleProduct } from '@/features/products/productSlice';
+import {
+	editProduct,
+	fetchSingleProduct,
+} from '@/features/products/productSlice';
 import axios from 'axios';
+import { useRouter } from 'next/navigation';
 import { use, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
@@ -18,6 +22,7 @@ const ProductEditPage = ({ params }) => {
 	const { singleProduct } = useSelector((store) => store.product);
 	const { name, price, quantity, expiryDate } = productToEdit;
 	const dispatch = useDispatch();
+	const router = useRouter();
 
 	const handleInputChange = (e) => {
 		const { name, value } = e.target;
@@ -27,11 +32,15 @@ const ProductEditPage = ({ params }) => {
 	const handleEditProduct = async (e) => {
 		e.preventDefault();
 		try {
-			const res = await axios.post(`/api/products`, productToEdit);
+			const res = await axios.put(`/api/products/edit/${id}`, productToEdit);
 
-			if (res?.status === 201) {
+			if (res?.status === 200) {
 				setError('');
 				setProductToEdit(initialState);
+				router.push('/');
+				dispatch(
+					editProduct({ id, updatedProduct: res?.data?.updatedProduct })
+				);
 			}
 		} catch (error) {
 			setError(error?.response?.data?.message);

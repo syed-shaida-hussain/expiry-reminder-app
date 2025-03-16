@@ -49,7 +49,15 @@ export const fetchExpiringSoonProducts = createAsyncThunk(
 const productSlice = createSlice({
 	name: 'products',
 	initialState,
-	reducers: {},
+	reducers: {
+		editProduct: (state, action) => {
+			const productId = action.payload.id;
+			const productIndex = state.products.findIndex(
+				(product) => product._id === productId
+			);
+			state.products[productIndex] = action.payload.updatedProduct;
+		},
+	},
 	extraReducers: (builder) => {
 		builder
 			.addCase(fetchProducts.pending, (state) => {
@@ -73,5 +81,7 @@ const productSlice = createSlice({
 			});
 	},
 });
+
+export const { editProduct } = productSlice.actions;
 
 export default productSlice.reducer;
