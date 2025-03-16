@@ -50,11 +50,7 @@ const Homepage = () => {
 											<div className="flex-1 text-center">Edit</div>
 										</div>
 										{filteredProducts?.map((product) => (
-											<ProductCard
-												key={product._id}
-												product={product}
-												isProductListingCard={true}
-											/>
+											<ProductCard key={product._id} product={product} />
 										))}
 									</div>
 								</div>

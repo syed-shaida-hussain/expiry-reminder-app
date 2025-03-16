@@ -82,7 +82,7 @@ export async function GET(request) {
 	} catch (error) {
 		return NextResponse.json(
 			{
-				message: 'Error in fetching product',
+				message: 'Error in fetching products',
 				error,
 				success: false,
 				status: 500,

@@ -31,7 +31,6 @@ const LoginPage = () => {
 				router.push('/');
 			}
 		} catch (error) {
-			console.log(error);
 			setError({
 				...error,
 				usernameError: error?.response?.data?.errors?.username,

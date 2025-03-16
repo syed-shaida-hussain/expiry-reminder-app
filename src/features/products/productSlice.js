@@ -6,6 +6,7 @@ const initialState = {
 	loading: false,
 	products: [],
 	expiringSoonProducts: [],
+	singleProduct: {},
 };
 
 export const fetchProducts = createAsyncThunk(
@@ -13,6 +14,19 @@ export const fetchProducts = createAsyncThunk(
 	async () => {
 		try {
 			const res = await fetch('http://localhost:3000/api/products');
+			return res.json();
+		} catch (error) {
+			console.log(error.response);
+		}
+	}
+);
+
+export const fetchSingleProduct = createAsyncThunk(
+	'products/fetchSingleProduct',
+	async (action) => {
+		try {
+			const id = action;
+			const res = await fetch(`http://localhost:3000/api/products/${id}`);
 			return res.json();
 		} catch (error) {
 			console.log(error.response);
@@ -50,6 +64,12 @@ const productSlice = createSlice({
 			.addCase(fetchExpiringSoonProducts.fulfilled, (state, action) => {
 				(state.loading = false),
 					(state.expiringSoonProducts = action.payload.products);
+			})
+			.addCase(fetchSingleProduct.pending, (state) => {
+				state.loading = true;
+			})
+			.addCase(fetchSingleProduct.fulfilled, (state, action) => {
+				(state.loading = false), (state.singleProduct = action.payload.product);
 			});
 	},
 });

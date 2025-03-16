@@ -1,4 +1,5 @@
 import { calculateDaysToExpire } from '@/utils/calculateExpiry';
+import Link from 'next/link';
 import { MdOutlineModeEdit } from 'react-icons/md';
 
 const ProductCard = ({ product }) => {
@@ -33,7 +34,9 @@ const ProductCard = ({ product }) => {
 				<div className="w-full sm:flex-1 sm:w-auto flex justify-between text-center gap-4 sm:block">
 					<span className="sm:hidden font-semibold">Edit: </span>
 					<button>
-						<MdOutlineModeEdit size={20} />
+						<Link href={`/edit/${product?._id}`}>
+							<MdOutlineModeEdit size={20} />
+						</Link>
 					</button>
 				</div>
 			</div>

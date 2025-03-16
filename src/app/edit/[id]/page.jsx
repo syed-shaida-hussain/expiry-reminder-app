@@ -1,26 +1,37 @@
 'use client';
 
+import { fetchSingleProduct } from '@/features/products/productSlice';
 import axios from 'axios';
-import { useState } from 'react';
+import { use, useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 
-const AddProductPage = () => {
+const ProductEditPage = ({ params }) => {
+	const { id } = use(params);
+	const [error, setError] = useState('');
 	const initialState = {
 		name: '',
 		price: '',
 		quantity: '',
 		expiryDate: '',
-		userId: null,
 	};
-	const [newProduct, setNewProduct] = useState(initialState);
-	const [error, setError] = useState('');
-	const handleAddProduct = async (e) => {
+	const [productToEdit, setProductToEdit] = useState(initialState);
+	const { singleProduct } = useSelector((store) => store.product);
+	const { name, price, quantity, expiryDate } = productToEdit;
+	const dispatch = useDispatch();
+
+	const handleInputChange = (e) => {
+		const { name, value } = e.target;
+		setProductToEdit({ ...productToEdit, [name]: value });
+	};
+
+	const handleEditProduct = async (e) => {
 		e.preventDefault();
 		try {
-			const res = await axios.post('/api/products', newProduct);
+			const res = await axios.post(`/api/products`, productToEdit);
 
 			if (res?.status === 201) {
 				setError('');
-				setNewProduct(initialState);
+				setProductToEdit(initialState);
 			}
 		} catch (error) {
 			setError(error?.response?.data?.message);
@@ -28,20 +39,32 @@ const AddProductPage = () => {
 		}
 	};
 
-	const handleInputChange = (e) => {
-		const { name, value } = e.target;
-		setNewProduct({ ...newProduct, [name]: value });
-	};
+	useEffect(() => {
+		if (id) {
+			dispatch(fetchSingleProduct(id));
+		}
+	}, [dispatch, id]);
 
+	useEffect(() => {
+		if (singleProduct) {
+			setProductToEdit({
+				...productToEdit,
+				name: singleProduct?.name,
+				price: singleProduct?.price,
+				quantity: singleProduct?.quantity,
+				expiryDate: singleProduct?.expiryDate,
+			});
+		}
+	}, [singleProduct]);
 	return (
 		<div className="flex items-center justify-center h-[90vh] w-full p-4 my-14">
 			<form
-				onSubmit={handleAddProduct}
-				name="add-product-form"
+				onSubmit={handleEditProduct}
+				name="edit-product-form"
 				className="flex flex-col gap-6  w-[100%] h-fit sm:w-[80%] lg:w-[70%] xl:w-[50%] 2xl:w-fit shadow-2xl px-8 py-4 sm:px-16 sm:py-8 2xl:p-20 2xl:text-2xl  rounded-lg"
 			>
 				<h1 className="text-center font-semibold text-lg md:text-2xl">
-					Add Product
+					Edit Product
 				</h1>
 				<label htmlFor="name" className="flex flex-col gap-2">
 					Name *
@@ -50,7 +73,7 @@ const AddProductPage = () => {
 						id="name"
 						type="text"
 						name="name"
-						value={newProduct.name}
+						value={name || ''}
 						onChange={handleInputChange}
 					/>
 				</label>
@@ -61,7 +84,7 @@ const AddProductPage = () => {
 						id="price"
 						type="number"
 						name="price"
-						value={newProduct.price}
+						value={price || ''}
 						onChange={handleInputChange}
 					/>
 				</label>
@@ -72,7 +95,7 @@ const AddProductPage = () => {
 						id="quantity"
 						type="number"
 						name="quantity"
-						value={newProduct.quantity}
+						value={quantity || ''}
 						onChange={handleInputChange}
 					/>
 				</label>
@@ -83,7 +106,7 @@ const AddProductPage = () => {
 						id="expiry-date"
 						type="date"
 						name="expiryDate"
-						value={newProduct.expiryDate}
+						value={expiryDate?.split('T')[0] || ''}
 						onChange={handleInputChange}
 					/>
 				</label>
@@ -92,11 +115,11 @@ const AddProductPage = () => {
 					type="submit"
 					className="bg-background text-textColor p-2  font-semibold rounded-full mt-1"
 				>
-					Add Product
+					Edit Product
 				</button>
 			</form>
 		</div>
 	);
 };
 
-export default AddProductPage;
+export default ProductEditPage;
