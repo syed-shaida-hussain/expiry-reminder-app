@@ -13,7 +13,7 @@ export const fetchProducts = createAsyncThunk(
 	'products/fetchProducts',
 	async () => {
 		try {
-			const res = await fetch('http://localhost:3000/api/products');
+			const res = await fetch(`${process.env.NEXT_PUBLIC_DOMAIN}/api/products`);
 			return res.json();
 		} catch (error) {
 			console.log(error.response);
@@ -26,7 +26,9 @@ export const fetchSingleProduct = createAsyncThunk(
 	async (action) => {
 		try {
 			const id = action;
-			const res = await fetch(`http://localhost:3000/api/products/${id}`);
+			const res = await fetch(
+				`${process.env.NEXT_PUBLIC_DOMAIN}/api/products/${id}`
+			);
 			return res.json();
 		} catch (error) {
 			console.log(error.response);
@@ -38,7 +40,9 @@ export const fetchExpiringSoonProducts = createAsyncThunk(
 	'products/fetchExpiringSoonProducts',
 	async () => {
 		try {
-			const res = await fetch('http://localhost:3000/api/expiring-soon');
+			const res = await fetch(
+				`${process.env.NEXT_PUBLIC_DOMAIN}/api/expiring-soon`
+			);
 			return res.json();
 		} catch (error) {
 			console.log(error.response.data);
