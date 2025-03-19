@@ -97,6 +97,7 @@ const ProductEditPage = ({ params }) => {
 						name="price"
 						value={price || ''}
 						onChange={handleInputChange}
+						onWheel={(e) => e.target.blur()}
 					/>
 				</label>
 				<label htmlFor="quantity" className="flex flex-col gap-2">
@@ -108,6 +109,7 @@ const ProductEditPage = ({ params }) => {
 						name="quantity"
 						value={quantity || ''}
 						onChange={handleInputChange}
+						onWheel={(e) => e.target.blur()}
 					/>
 				</label>
 				<label htmlFor="expiry-date" className="flex flex-col gap-2">

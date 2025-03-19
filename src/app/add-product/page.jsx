@@ -65,6 +65,7 @@ const AddProductPage = () => {
 						name="price"
 						value={newProduct.price}
 						onChange={handleInputChange}
+						onWheel={(e) => e.target.blur()}
 					/>
 				</label>
 				<label htmlFor="quantity" className="flex flex-col gap-2">
@@ -76,6 +77,7 @@ const AddProductPage = () => {
 						name="quantity"
 						value={newProduct.quantity}
 						onChange={handleInputChange}
+						onWheel={(e) => e.target.blur()}
 					/>
 				</label>
 				<label htmlFor="expiry-date" className="flex flex-col gap-2">
