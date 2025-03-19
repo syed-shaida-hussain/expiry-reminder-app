@@ -37,7 +37,7 @@ const ProductEditPage = ({ params }) => {
 
 			if (res?.status === 200) {
 				setError('');
-				toast('Post Edited successfully');
+				toast('Product Edited successfully');
 				setProductToEdit(initialState);
 				router.push('/');
 				dispatch(
