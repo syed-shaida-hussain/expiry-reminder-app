@@ -28,9 +28,9 @@ const LoginPage = () => {
 				});
 			}
 			if (res?.data?.status === 200) {
+				router.push('/');
 				toast('Login successfull');
 				dispatch(loginUser(res?.data?.user));
-				router.push('/');
 			}
 		} catch (error) {
 			setError({

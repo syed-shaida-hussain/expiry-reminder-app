@@ -37,11 +37,16 @@ export async function POST(request) {
 			},
 			{ status: 200 }
 		);
-		response.cookies.set('token', token);
+		response.cookies.set('token', token, {
+			maxAge: 60 * 60 * 24 * 7,
+			path: '/',
+			sameSite: 'Lax',
+			secure: true,
+		});
 		setCookie('token', token, {
 			maxAge: 60 * 60 * 24 * 7,
-			secure: true,
 			path: '/',
+			sameSite: 'Lax',
 		});
 		return response;
 	} catch (error) {
