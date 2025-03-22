@@ -39,7 +39,8 @@ export async function POST(request) {
 		);
 		response.cookies.set('token', token);
 		setCookie('token', token, {
-			maxAge: 432000,
+			maxAge: 60 * 60 * 24 * 7,
+			secure: true,
 			path: '/',
 		});
 		return response;
