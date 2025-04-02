@@ -28,7 +28,7 @@ const LoginPage = () => {
 				});
 			}
 			if (res?.data?.status === 200) {
-				router.push(`${process.env.NEXT_PUBLIC_DOMAIN}/`);
+				router.push(`${process.env.NEXT_PUBLIC_DOMAIN}`);
 				toast('Login successfull');
 				dispatch(loginUser(res?.data?.user));
 			}

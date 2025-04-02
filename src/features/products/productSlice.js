@@ -13,7 +13,7 @@ export const fetchProducts = createAsyncThunk(
 	'products/fetchProducts',
 	async () => {
 		try {
-			const res = await fetch(`${process.env.NEXT_PUBLIC_DOMAIN}/api/products`);
+			const res = await fetch(`${process.env.NEXT_PUBLIC_DOMAIN}api/products`);
 			return res.json();
 		} catch (error) {
 			console.log(error.response);
@@ -41,7 +41,7 @@ export const fetchExpiringSoonProducts = createAsyncThunk(
 	async () => {
 		try {
 			const res = await fetch(
-				`${process.env.NEXT_PUBLIC_DOMAIN}/api/expiring-soon`
+				`${process.env.NEXT_PUBLIC_DOMAIN}api/expiring-soon`
 			);
 			return res.json();
 		} catch (error) {
@@ -60,6 +60,12 @@ const productSlice = createSlice({
 				(product) => product._id === productId
 			);
 			state.products[productIndex] = action.payload.updatedProduct;
+		},
+		deleteProduct: (state, action) => {
+			const productId = action.payload;
+			state.products = state.products.filter(
+				(product) => product._id !== productId
+			);
 		},
 	},
 	extraReducers: (builder) => {
@@ -86,6 +92,6 @@ const productSlice = createSlice({
 	},
 });
 
-export const { editProduct } = productSlice.actions;
+export const { editProduct, deleteProduct } = productSlice.actions;
 
 export default productSlice.reducer;

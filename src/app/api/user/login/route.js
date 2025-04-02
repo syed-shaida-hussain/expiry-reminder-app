@@ -47,6 +47,7 @@ export async function POST(request) {
 			maxAge: 60 * 60 * 24 * 7,
 			path: '/',
 			sameSite: 'Lax',
+			secure: true,
 		});
 		return response;
 	} catch (error) {

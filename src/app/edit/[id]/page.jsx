@@ -1,6 +1,7 @@
 'use client';
 
 import {
+	deleteProduct,
 	editProduct,
 	fetchSingleProduct,
 } from '@/features/products/productSlice';
@@ -47,6 +48,19 @@ const ProductEditPage = ({ params }) => {
 		} catch (error) {
 			setError(error?.response?.data?.message);
 			console.log(error.response);
+		}
+	};
+
+	const handleDeleteProduct = async () => {
+		try {
+			const res = await axios.delete(`/api/products/delete/${id}`);
+			if (res.status === 200) {
+				router.push('/');
+				dispatch(deleteProduct(id));
+			}
+			console.log(res);
+		} catch (error) {
+			console.log(error);
 		}
 	};
 
@@ -124,12 +138,20 @@ const ProductEditPage = ({ params }) => {
 					/>
 				</label>
 				<div className="text-red-500">{error}</div>
-				<button
-					type="submit"
-					className="bg-background text-textColor p-2  font-semibold rounded-full mt-1"
-				>
-					Edit Product
-				</button>
+				<div className="flex flex-col gap-2">
+					<button
+						type="submit"
+						className="bg-background hover:bg-black text-textColor p-2  font-semibold rounded-full mt-1"
+					>
+						Edit Product
+					</button>
+					<button
+						className="bg-red-500 hover:bg-red-600 text-textColor p-2  font-semibold rounded-full mt-1"
+						onClick={handleDeleteProduct}
+					>
+						Delete Product
+					</button>
+				</div>
 			</form>
 		</div>
 	);
