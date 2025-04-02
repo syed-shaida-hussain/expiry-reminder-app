@@ -27,8 +27,8 @@ const LoginPage = () => {
 					passwordError: res?.data?.errors?.password,
 				});
 			}
-			if (res?.data?.status === 200) {
-				router.push(`${process.env.NEXT_PUBLIC_DOMAIN}`);
+			if (res?.status === 200) {
+				router.push('/');
 				toast('Login successfull');
 				dispatch(loginUser(res?.data?.user));
 			}
