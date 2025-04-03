@@ -42,12 +42,14 @@ export async function POST(request) {
 			path: '/',
 			sameSite: 'Lax',
 			secure: true,
+			credentials: 'include',
 		});
 		setCookie('token', token, {
 			maxAge: 60 * 60 * 24 * 7,
 			path: '/',
 			sameSite: 'Lax',
 			secure: true,
+			credentials: 'include',
 		});
 		return response;
 	} catch (error) {

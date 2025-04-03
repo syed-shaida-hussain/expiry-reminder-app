@@ -28,9 +28,10 @@ const LoginPage = () => {
 				});
 			}
 			if (res?.status === 200) {
-				router.push('/');
 				toast('Login successfull');
 				dispatch(loginUser(res?.data?.user));
+				setError({ ...error, usernameError: '', passwordError: '' });
+				router.replace('/');
 			}
 		} catch (error) {
 			setError({

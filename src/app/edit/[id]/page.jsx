@@ -56,9 +56,9 @@ const ProductEditPage = ({ params }) => {
 			const res = await axios.delete(`/api/products/delete/${id}`);
 			if (res.status === 200) {
 				router.push('/');
+				toast('Product deleted successfully');
 				dispatch(deleteProduct(id));
 			}
-			console.log(res);
 		} catch (error) {
 			console.log(error);
 		}
