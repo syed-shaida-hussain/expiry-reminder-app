@@ -4,7 +4,7 @@ import { handleErrors } from '@/utils/handleErrors';
 import { NextResponse } from 'next/server';
 import bcrypt from 'bcrypt';
 import { createToken } from '@/utils/createToken';
-import { setCookie } from 'cookies-next';
+// import { setCookie } from 'cookies-next';
 
 connect();
 
@@ -42,15 +42,14 @@ export async function POST(request) {
 			path: '/',
 			sameSite: 'Lax',
 			secure: true,
-			credentials: 'include',
 		});
-		setCookie('token', token, {
-			maxAge: 60 * 60 * 24 * 7,
-			path: '/',
-			sameSite: 'Lax',
-			secure: true,
-			credentials: 'include',
-		});
+		response.headers.set('Cache-Control', 'no-store');
+		// setCookie('token', token, {
+		// 	maxAge: 60 * 60 * 24 * 7,
+		// 	path: '/',
+		// 	sameSite: 'Lax',
+		// 	secure: true,
+		// });
 		return response;
 	} catch (error) {
 		const errors = handleErrors(error);
