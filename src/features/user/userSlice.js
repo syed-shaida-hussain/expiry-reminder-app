@@ -2,7 +2,7 @@ import { createSlice } from '@reduxjs/toolkit';
 import { getCookie } from 'cookies-next';
 
 const initialState = {
-	user: {},
+	loggedInUser: {},
 	isUserLoggedIn: getCookie('token') ? true : false,
 };
 
@@ -11,11 +11,11 @@ const userSlice = createSlice({
 	initialState,
 	reducers: {
 		loginUser: (state, action) => {
-			state.user = action?.payload;
+			state.loggedInUser = action?.payload;
 			state.isUserLoggedIn = true;
 		},
 		logoutUser: (state) => {
-			state.user = {};
+			state.loggedInUser = {};
 			state.isUserLoggedIn = false;
 		},
 	},

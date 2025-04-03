@@ -2,9 +2,9 @@
 
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import axios from 'axios';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { loginUser } from '@/features/user/userSlice';
 import toast from 'react-hot-toast';
 
@@ -13,6 +13,7 @@ const LoginPage = () => {
 	const [error, setError] = useState({ usernameError: '', passwordError: '' });
 	const { username, password } = user;
 	const { usernameError, passwordError } = error;
+	const { loggedInUser } = useSelector((store) => store.user);
 	const router = useRouter();
 	const dispatch = useDispatch();
 
@@ -48,6 +49,12 @@ const LoginPage = () => {
 		const { name, value } = e.target;
 		setUser({ ...user, [name]: value });
 	};
+
+	useEffect(() => {
+		if (loggedInUser) {
+			router.replace('/');
+		}
+	}, [loggedInUser]);
 	return (
 		<div className="flex items-center justify-center h-[80vh] w-full p-4 my-8">
 			<form
