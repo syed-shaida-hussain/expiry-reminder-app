@@ -31,7 +31,9 @@ const LoginPage = () => {
 				toast('Login successfull');
 				dispatch(loginUser(res?.data?.user));
 				setError({ ...error, usernameError: '', passwordError: '' });
-				router.replace('/');
+				setTimeout(() => {
+					router.replace('/');
+				}, 100);
 			}
 		} catch (error) {
 			setError({
