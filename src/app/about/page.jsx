@@ -1,3 +1,4 @@
+import Footer from '@/components/Footer';
 import React from 'react';
 
 const AboutPage = () => {
@@ -42,6 +43,7 @@ const AboutPage = () => {
 				expiry date. Whether you own a small store or a large business, our tool
 				helps you stay ahead, reduce wastage, and optimize sales.
 			</p>
+			<Footer />
 		</div>
 	);
 };
