@@ -27,6 +27,9 @@ const Header = () => {
 				<Link href="/expiring-soon" className="font-semibold text-lg ">
 					Expiring soon
 				</Link>
+				<Link href="/about" className="font-semibold text-lg ">
+					About
+				</Link>
 				<AuthLinks />
 			</nav>
 			{isMenuOpen && (
@@ -37,6 +40,13 @@ const Header = () => {
 						onClick={toggleMenu}
 					>
 						Expiring soon
+					</Link>
+					<Link
+						href="/about"
+						className="font-semibold text-lg "
+						onClick={toggleMenu}
+					>
+						About
 					</Link>
 					<AuthLinks />
 				</nav>
