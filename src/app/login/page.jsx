@@ -19,7 +19,9 @@ const LoginPage = () => {
 	const handleLoginSubmit = async (e) => {
 		e.preventDefault();
 		try {
-			const res = await axios.post('/api/user/login', user);
+			const res = await axios.post('/api/user/login', user, {
+				withCredentials: true,
+			});
 			if (res.status !== 200) {
 				setError({
 					...error,
@@ -31,7 +33,7 @@ const LoginPage = () => {
 				toast('Login successfull');
 				dispatch(loginUser(res?.data?.user));
 				setError({ ...error, usernameError: '', passwordError: '' });
-				router.replace('/');
+				router.refresh();
 			}
 		} catch (error) {
 			setError({
