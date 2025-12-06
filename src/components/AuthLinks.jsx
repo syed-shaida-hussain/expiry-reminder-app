@@ -20,22 +20,22 @@ const AuthLinks = () => {
 		}
 	};
 	return (
-		<div className="flex flex-col gap-10 items-center sm:flex-row">
+		<div className="flex flex-col gap-6 items-center md:flex-row">
 			{isUserLoggedIn && (
-				<Link href="/add-product" className="font-semibold text-lg ">
+				<Link href="/add-product" className="font-semibold hover:underline">
 					Add product
 				</Link>
 			)}
 			<div>
 				{isUserLoggedIn ? (
 					<button
-						className="font-semibold text-lg"
+						className="font-semibold hover:underline"
 						onClick={() => handleLogout()}
 					>
 						Logout
 					</button>
 				) : (
-					<Link href="/login" className="font-semibold text-lg">
+					<Link href="/login" className="font-semibold hover:underline">
 						Login
 					</Link>
 				)}

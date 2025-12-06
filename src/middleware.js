@@ -4,7 +4,7 @@ export function middleware(req) {
 	const authToken = req.cookies.get('token')?.value || '';
 	const pathname = req.nextUrl.pathname;
 
-	const protectedRoutes = ['/', '/add-product', '/expiring-soon'];
+	const protectedRoutes = [ '/add-product', '/products', '/expiring-soon'];
 	const isProtected =
 		protectedRoutes.includes(pathname) || pathname.startsWith('/edit/');
 
@@ -21,7 +21,7 @@ export function middleware(req) {
 
 export const config = {
 	matcher: [
-		'/',
+		'/products',
 		'/add-product',
 		'/expiring-soon',
 		'/edit/:path*',

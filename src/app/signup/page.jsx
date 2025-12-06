@@ -7,87 +7,147 @@ import { useRouter } from 'next/navigation';
 import toast from 'react-hot-toast';
 
 const SignupPage = () => {
-	const [user, setUser] = useState({ username: '', password: '' });
-	const [error, setError] = useState({ usernameError: '', passwordError: '' });
-	const { username, password } = user;
-	const { usernameError, passwordError } = error;
-	const router = useRouter();
+  const [user, setUser] = useState({ username: '', password: '' });
+  const [error, setError] = useState({ usernameError: '', passwordError: '' });
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
-	const handleSignupSubmit = async (e) => {
-		e.preventDefault();
-		try {
-			const res = await axios.post('/api/user/signup', user);
-			if (res.status !== 201) {
-				setError({
-					...error,
-					usernameError: res?.data?.errors?.username,
-					passwordError: res?.data?.errors?.password,
-				});
-			}
-			if (res?.data?.status === 201) {
-				router.push('/login');
-				toast('Signup successfull');
-			}
-		} catch (error) {
-			console.log(error);
-		}
-	};
+  const router = useRouter();
+  const { username, password } = user;
+  const { usernameError, passwordError } = error;
 
-	const handleUserChange = (e) => {
-		const { name, value } = e.target;
-		setUser({ ...user, [name]: value });
-	};
+  // Frontend Validation
+  const validate = () => {
+    let isValid = true;
+    const newErrors = { usernameError: '', passwordError: '' };
 
-	return (
-		<div className="flex items-center justify-center h-[80vh] w-full p-4 my-8 ">
-			<form
-				name="signup-form"
-				className="flex flex-col gap-4  w-[90%] h-fit sm:w-[80%] md:w-[70%] lg:w-[60%] xl:w-[50%] 2xl:w-fit shadow-2xl px-8 py-4 sm:px-16 sm:py-8 2xl:p-20 2xl:text-2xl  rounded-lg"
-				onSubmit={handleSignupSubmit}
-				method="POST"
-			>
-				<h1 className="text-5xl text-center">Signup</h1>
-				<label htmlFor="username" className="flex flex-col gap-2 text-lg">
-					Username
-					<input
-						name="username"
-						type="text"
-						id="username"
-						placeholder="Username..."
-						className="input"
-						value={username}
-						onChange={(e) => handleUserChange(e)}
-					/>
-				</label>
-				<div className="text-red-500">{usernameError}</div>
-				<label htmlFor="password" className="flex flex-col gap-2 text-lg">
-					Password
-					<input
-						name="password"
-						type="password"
-						id="password"
-						placeholder="Password..."
-						className="input"
-						value={password}
-						onChange={handleUserChange}
-					/>
-				</label>
-				<div className="text-red-500">{passwordError}</div>
-				<button
-					type="submit"
-					className="w-full bg-background text-textColor px-5 py-2 text-lg font-semibold"
-				>
-					Signup
-				</button>
-				<Link
-					href="/login"
-					className="w-full text-center text-lg underline text-linkColor"
-				>
-					Already a user? Login
-				</Link>
-			</form>
-		</div>
-	);
+    if (!username.trim()) {
+      newErrors.usernameError = 'Username is required';
+      isValid = false;
+    }
+
+    if (!password.trim()) {
+      newErrors.passwordError = 'Password is required';
+      isValid = false;
+    } else if (password.length < 8) {
+      newErrors.passwordError = 'Password must be at least 8 characters long';
+      isValid = false;
+    }
+
+    setError(newErrors);
+    return isValid;
+  };
+
+  const handleSignupSubmit = async (e) => {
+    e.preventDefault();
+    if (!validate()) return;
+
+    setIsSubmitting(true);
+
+    try {
+      const res = await axios.post('/api/user/signup', user);
+
+      if (res?.data?.status === 201) {
+        toast.success('Signup successful');
+        router.push('/login');
+      } else {
+        setError({
+          usernameError: res?.data?.errors?.username || '',
+          passwordError: res?.data?.errors?.password || '',
+        });
+      }
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
+  const handleUserChange = (e) => {
+    const { name, value } = e.target;
+    setUser({ ...user, [name]: value });
+  };
+
+  return (
+    <div className="flex items-center justify-center min-h-[90vh] w-full p-4 bg-background text-textColor">
+      <form
+        name="signup-form"
+        onSubmit={handleSignupSubmit}
+        method="POST"
+        className="shadow-2xl rounded-xl px-8 py-10 w-full max-w-md flex flex-col gap-5 bg-surfaceColor"
+      >
+        <h1 className="text-4xl font-semibold text-center">Signup</h1>
+
+        {/* Username */}
+        <div className="flex flex-col gap-1">
+          <label htmlFor="username" className="text-lg font-medium">
+            Username
+          </label>
+          <input
+            name="username"
+            type="text"
+            id="username"
+            placeholder="Enter your username"
+            className={`bg-surfaceColor text-textColor border border-gray-600 rounded px-3 py-2 focus:outline-none focus:border-accent placeholder-gray-400 ${
+              usernameError ? 'border-red-500' : ''
+            }`}
+            value={username}
+            onChange={handleUserChange}
+          />
+          {usernameError && (
+            <p className="text-sm text-red-500">{usernameError}</p>
+          )}
+        </div>
+
+        {/* Password */}
+        <div className="flex flex-col gap-1">
+          <label htmlFor="password" className="text-lg font-medium">
+            Password
+          </label>
+          <input
+            name="password"
+            type="password"
+            id="password"
+            placeholder="Enter your password"
+            className={`bg-surfaceColor text-textColor border border-gray-600 rounded px-3 py-2 focus:outline-none focus:border-accent placeholder-gray-400 ${
+              passwordError ? 'border-red-500' : ''
+            }`}
+            value={password}
+            onChange={handleUserChange}
+          />
+          {passwordError && (
+            <p className="text-sm text-red-500">{passwordError}</p>
+          )}
+        </div>
+
+        {/* Submit Button */}
+        <button
+          type="submit"
+          disabled={isSubmitting}
+          className={`w-full py-3 rounded-lg font-semibold flex justify-center items-center transition bg-background text-textColor
+            ${isSubmitting ? 'bg-accent/70 cursor-not-allowed' : 'hover:bg-accent-dark'}
+          `}
+        >
+          {isSubmitting ? (
+            <div className="h-5 w-5 border-2 border-textColor border-t-transparent rounded-full animate-spin"></div>
+          ) : (
+            'Signup'
+          )}
+        </button>
+
+        {/* Login Link */}
+        <p className="text-center text-textColor">
+          Already a user?{' '}
+          <Link
+            href="/login"
+            className="underline"
+            style={{ color: 'var(--link-color)' }}
+          >
+            Login
+          </Link>
+        </p>
+      </form>
+    </div>
+  );
 };
 
 export default SignupPage;

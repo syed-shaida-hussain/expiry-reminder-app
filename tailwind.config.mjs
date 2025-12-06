@@ -11,6 +11,7 @@ export default {
 				background: 'var(--background)',
 				textColor: 'var(--text-color)',
 				linkColor: 'var(--link-color)',
+				surfaceColor: 'var(--surface-color)',
 			},
 		},
 	},

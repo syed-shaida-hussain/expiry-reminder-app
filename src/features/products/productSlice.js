@@ -3,7 +3,7 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 
 const initialState = {
-	loading: false,
+	loading: true,
 	products: [],
 	expiringSoonProducts: [],
 	singleProduct: {},
